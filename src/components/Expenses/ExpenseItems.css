@@ -1,0 +1,131 @@
+/*expense container*/
+.expense-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  margin: 1rem 1rem;
+  background-color: #9388a2;
+}
+
+/*desxription*/
+.expense-item__description {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-end;
+  flex-flow: column-reverse;
+  justify-content: flex-start;
+  flex: 1;
+}
+
+/*heading properties*/
+.expense-item h2 {
+  color: #3a3a3a;
+  font-size: 1rem;
+  flex: 1;
+  margin: 0 1rem;
+  color: white;
+}
+
+/*button properties*/
+.expense-item__price {
+  padding: 0.9em 1.6em;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 17px;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 12px;
+}
+
+.expense-item__price::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #341948;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+/* glow */
+.expense-item__price::before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #695e93,
+    #8155ba,
+    #beafc2,
+    #8155ba,
+    #695e93,
+    #8155ba,
+    #beafc2,
+    #8155ba
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 600%;
+  z-index: -1;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  filter: blur(8px);
+  animation: glowing 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+  opacity: 0;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+
+  50% {
+    background-position: 400% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* hover */
+.expense-item__price:hover::before {
+  opacity: 1;
+}
+
+.expense-item__price:active:after {
+  background: transparent;
+}
+
+.expense-item__price:active {
+  color: #000;
+  font-weight: bold;
+}
+
+/*for mobile version*/
+
+@media (min-width: 580px) {
+  .expense-item__description {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+  }
+
+  .expense-item__description h2 {
+    font-size: 1.25rem;
+  }
+
+  .expense-item__price {
+    font-size: 1.25rem;
+    padding: 0.5rem 1.5rem;
+  }
+}
