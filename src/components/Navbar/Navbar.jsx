@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Navbar.css";
+import kharcheLogo from "../../assests/kharche_logo.png";
 const t = new Date().toLocaleTimeString();
 function Navbar() {
   const [time, setTime] = useState(t);
@@ -10,7 +11,7 @@ function Navbar() {
   setInterval(currentTime, 1000);
   return (
     <div className="navbar">
-      <h1>Expense Tracker</h1>
+      <img className="logo" src={kharcheLogo} alt="Kharche" />
       <h2>{time}</h2>
     </div>
   );
