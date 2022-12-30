@@ -28,87 +28,17 @@
   color: white;
 }
 
-/*button properties*/
+/*price */
 .expense-item__price {
-  padding: 0.9em 1.6em;
-  border: none;
-  outline: none;
-  color: #fff;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 17px;
-  cursor: pointer;
-  position: relative;
-  z-index: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #341948;
+  border: 1px solid white;
+  padding: 0.5rem;
   border-radius: 12px;
 }
 
-.expense-item__price::after {
-  content: "";
-  z-index: -1;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #341948;
-  left: 0;
-  top: 0;
-  border-radius: 10px;
-}
-/* glow */
-.expense-item__price::before {
-  content: "";
-  background: linear-gradient(
-    45deg,
-    #695e93,
-    #8155ba,
-    #beafc2,
-    #8155ba,
-    #695e93,
-    #8155ba,
-    #beafc2,
-    #8155ba
-  );
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  background-size: 600%;
-  z-index: -1;
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  filter: blur(8px);
-  animation: glowing 20s linear infinite;
-  transition: opacity 0.3s ease-in-out;
-  border-radius: 10px;
-  opacity: 0;
-}
-
-@keyframes glowing {
-  0% {
-    background-position: 0 0;
-  }
-
-  50% {
-    background-position: 400% 0;
-  }
-
-  100% {
-    background-position: 0 0;
-  }
-}
-
-/* hover */
-.expense-item__price:hover::before {
-  opacity: 1;
-}
-
-.expense-item__price:active:after {
-  background: transparent;
-}
-
-.expense-item__price:active {
-  color: #000;
-  font-weight: bold;
-}
 
 /*for mobile version*/
 

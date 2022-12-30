@@ -13,7 +13,7 @@ const Expenses = (props) => {
             title={item.title}
             amount={item.amount}
             date={item.date}
-            key={Math.random()}
+            key={item.id}
           />
         );
       })}

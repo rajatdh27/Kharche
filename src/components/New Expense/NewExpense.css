@@ -1,0 +1,64 @@
+.new-expense {
+  background-color: #9388a2;
+  padding: 1rem;
+  margin: 5rem auto;
+  width: 50rem;
+  max-width: 95%;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.new-expense button {
+  background: #341948;
+  color: white;
+  padding: 1.5rem;
+  padding-left: 1.2em;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 0.9em;
+  border: none;
+  letter-spacing: 0.05em;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  height: 2.8em;
+  padding-right: 3.3em;
+}
+
+.new-expense button .icon {
+  background: white;
+  color: #341948;
+  font-size: 1rem;
+  margin-left: 1em;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2em;
+  width: 2em;
+  border-radius: 0.7em;
+  right: 0.3em;
+  transition: all 0.3s;
+}
+
+.new-expense button:hover .icon {
+  width: calc(100% - 0.6em);
+}
+
+.new-expense button:hover .icon svg {
+  transform: translateX(0.1em);
+}
+
+.new-expense button:active .icon {
+  transform: scale(0.95);
+}
+
+/* @media (max-width: 450px) {
+  .new-expense button {
+    width: 100%;
+    text-align: center;
+  }
+} */
