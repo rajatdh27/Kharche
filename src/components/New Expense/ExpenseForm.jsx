@@ -37,7 +37,7 @@ const ExpenseForm = (props) => {
     const [year, month, date] = userInput.enteredDate.split("-");
     const [hour, minute] = userInput.enteredTime.split(":");
     const expenseDate = {
-      title: userInput.enteredTime,
+      title: userInput.enteredTitle,
       amount: userInput.enteredAmount,
       date: new Date(year, month - 1, date, hour, minute),
     };
