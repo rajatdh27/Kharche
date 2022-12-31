@@ -6,19 +6,31 @@ import Card from "../UI/Card";
 import "./Expenses.css";
 
 const Expenses = (props) => {
-  const [filteredYear, setFilteredYear] = useState("2020");
+  const date = new Date();
+  const [filteredDate, setFilteredDate] = useState({
+    month: date.toLocaleString("en-US", { month: "long" }),
+    year: date.getFullYear(),
+  });
   const filterChangeHandler = (selectedYear) => {
-    setFilteredYear(selectedYear);
+    setFilteredDate(selectedYear);
   };
   const filteredExpenses = props.items.filter((expense) => {
-    console.log(expense.date.getFullYear.toString(), filteredYear);
-    return expense.date.getFullYear().toString() === filteredYear;
+    console.log(
+      expense.date.getFullYear(),
+      filteredDate.year,
+      expense.date.toLocaleString("en-US", { month: "long" }),
+      filteredDate.month
+    );
+    return (
+      expense.date.getFullYear() === filteredDate.year &&
+      expense.date.toLocaleString("en-US", { month: "long" }) ===
+        filteredDate.month
+    );
   });
-  console.log(filteredExpenses);
   return (
     <Card className="expenses">
       <ExpensesFilter
-        selected={filteredYear}
+        selected={filteredDate}
         onChangeFilter={filterChangeHandler}
       />
       {filteredExpenses.map((item) => {
