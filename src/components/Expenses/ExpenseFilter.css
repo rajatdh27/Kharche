@@ -13,9 +13,10 @@
 
 .expenses-filter__control .value {
   display: flex;
-  width: 50%;
+  width: 90%;
+  gap: 0.5rem;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin: 1rem 0;
 }
 
@@ -29,4 +30,16 @@
   padding: 0.5rem 3rem;
   font-weight: bold;
   border-radius: 6px;
+}
+
+@media (max-width: 520px) {
+  .expenses-filter__control {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 500px) {
+  .expenses-filter__control .value {
+    flex-direction: column;
+  }
 }

@@ -52,7 +52,7 @@
   transform: translateX(0.1em);
 }
 
-.new-expense button:active .icon {
+.new-expense button:active {
   transform: scale(0.95);
 }
 
