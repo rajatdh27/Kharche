@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
+  const date = new Date();
+  const [hr, min] = date.toLocaleTimeString().split(":");
+  const [month, day, year] = date.toLocaleDateString().split("/");
   const [userInput, setUserInput] = useState({
     enteredTitle: "",
     enteredAmount: "",
-    enteredDate: "",
-    enteredTime: "",
+    enteredDate: `${year}-${month}-${day}`,
+    enteredTime: `${hr}:${min}`,
   });
   const titleHandler = (e) => {
     const title = e.target.value;
@@ -42,11 +45,14 @@ const ExpenseForm = (props) => {
       date: new Date(year, month - 1, date, hour, minute),
     };
     setUserInput(() => {
+      const date = new Date();
+      const [hr, min] = date.toLocaleTimeString().split(":");
+      const [month, day, year] = date.toLocaleDateString().split("/");
       return {
         enteredTitle: "",
         enteredAmount: "",
-        enteredDate: "",
-        enteredTime: "",
+        enteredDate: `${year}-${month}-${day}`,
+        enteredTime: `${hr}:${min}`,
       };
     });
     props.onSaveExpenseData(expenseDate);
@@ -60,6 +66,7 @@ const ExpenseForm = (props) => {
             type="text"
             onChange={titleHandler}
             value={userInput.enteredTitle}
+            required
           />
         </div>
         <div className="new-expense__control">
@@ -70,6 +77,7 @@ const ExpenseForm = (props) => {
             value={userInput.enteredAmount}
             min="0.01"
             step="0.01"
+            required
           />
         </div>
         <div className="new-expense__control">
@@ -78,6 +86,7 @@ const ExpenseForm = (props) => {
             type="date"
             onChange={dateHandler}
             value={userInput.enteredDate}
+            required
           />
         </div>
         <div className="new-expense__control">
@@ -86,6 +95,7 @@ const ExpenseForm = (props) => {
             type="time"
             onChange={timeHandler}
             value={userInput.enteredTime}
+            required
           />
         </div>
       </div>

@@ -27,7 +27,6 @@ function App() {
     },
   ]);
   const newExpenseDataHandler = (data) => {
-    console.log(data);
     setExpenses((prevExpenses) => {
       return [...prevExpenses, data];
     });

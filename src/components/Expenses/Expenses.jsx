@@ -15,12 +15,6 @@ const Expenses = (props) => {
     setFilteredDate(selectedYear);
   };
   const filteredExpenses = props.items.filter((expense) => {
-    console.log(
-      expense.date.getFullYear(),
-      filteredDate.year,
-      expense.date.toLocaleString("en-US", { month: "long" }),
-      filteredDate.month
-    );
     return (
       expense.date.getFullYear() === filteredDate.year &&
       expense.date.toLocaleString("en-US", { month: "long" }) ===
