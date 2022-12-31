@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import ExpenseItem from "./ExpenseItems";
 import ExpensesFilter from "./ExpenseFilter";
+import Chart from "../Chart/Chart";
 import Card from "../UI/Card";
 import "./Expenses.css";
 
@@ -14,9 +15,10 @@ const Expenses = (props) => {
   const filterChangeHandler = (selectedYear) => {
     setFilteredDate(selectedYear);
   };
+
   const filteredExpenses = props.items.filter((expense) => {
     return (
-      expense.date.getFullYear() === filteredDate.year &&
+      expense.date.getFullYear().toString() === filteredDate.year.toString() &&
       expense.date.toLocaleString("en-US", { month: "long" }) ===
         filteredDate.month
     );
@@ -27,6 +29,10 @@ const Expenses = (props) => {
         selected={filteredDate}
         onChangeFilter={filterChangeHandler}
       />
+      {filteredExpenses.length === 0 && <h1>No Expenses!</h1>}
+      {filteredExpenses.length > 0 && (
+        <Chart dt={filteredDate} data={filteredExpenses} />
+      )}
       {filteredExpenses.map((item) => {
         return (
           <ExpenseItem

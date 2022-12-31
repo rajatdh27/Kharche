@@ -3,7 +3,12 @@ import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
   const date = new Date();
-  const [hr, min] = date.toLocaleTimeString().split(":");
+  const hr = date.getHours().toString();
+  const min =
+    date.getMinutes().toString() < 10
+      ? `0${date.getMinutes().toString()}`
+      : date.getMinutes().toString();
+
   const [month, day, year] = date.toLocaleDateString().split("/");
   const [userInput, setUserInput] = useState({
     enteredTitle: "",
@@ -46,7 +51,11 @@ const ExpenseForm = (props) => {
     };
     setUserInput(() => {
       const date = new Date();
-      const [hr, min] = date.toLocaleTimeString().split(":");
+      const hr = date.getHours().toString();
+      const min =
+        date.getMinutes().toString() < 10
+          ? `0${date.getMinutes().toString()}`
+          : date.getMinutes().toString();
       const [month, day, year] = date.toLocaleDateString().split("/");
       return {
         enteredTitle: "",
