@@ -6,9 +6,10 @@ import {
   BarElement,
   CategoryScale,
   LinearScale,
-  PointElement,
+  Tooltip,
+  Legend,
 } from "chart.js";
-ChartJS.register(BarElement, CategoryScale, LinearScale, PointElement);
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 function Chart(props) {
   const year = props.dt.year;
   const month =
@@ -28,15 +29,17 @@ function Chart(props) {
     return graphData;
   });
   const data = {
-    labels: labelArray,
+    labels: labelArray.map((item) => {
+      return `Day: ${item}`;
+    }),
     datasets: [
       {
-        label: "First dataset",
+        label: "Your Expenses",
         data: graphData,
         fill: false,
         backgroundColor: "#9388a2",
         borderColor: "#341948",
-        tension: 0.2,
+        borderWidth: 2,
       },
     ],
   };

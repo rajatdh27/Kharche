@@ -12,7 +12,11 @@ function Navbar() {
   return (
     <div className="navbar">
       <img className="logo" src={kharcheLogo} alt="Kharche" />
-      <h2>{time}</h2>
+      <div className="elements">
+        <i class="fa-solid fa-house fa-xl child"></i>
+        <i class="fa-solid fa-user fa-xl child"></i>
+        <h2>{time}</h2>
+      </div>
     </div>
   );
 }

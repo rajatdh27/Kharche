@@ -4,6 +4,11 @@ import "./ExpenseFilter.css";
 
 const ExpenseFilter = (props) => {
   const [selectedDate, setSelectedDate] = useState(props.selected);
+  const yearArr = props.yearArr;
+  yearArr.push(new Date().getFullYear());
+  yearArr.sort();
+  yearArr.reverse();
+  console.log(yearArr);
   const dropdownChangeMonthHandler = (event) => {
     setSelectedDate((prevDate) => {
       return { ...prevDate, month: event.target.value };
@@ -49,10 +54,9 @@ const ExpenseFilter = (props) => {
             value={props.selected.year}
             onChange={dropdownChangeYearHandler}
           >
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-            <option value="2020">2020</option>
+            {yearArr.map((year) => {
+              return <option value={`${year}`} key={year}>{`${year}`}</option>;
+            })}
           </select>
         </div>
       </div>

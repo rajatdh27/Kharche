@@ -8,6 +8,7 @@ import "./Expenses.css";
 
 const Expenses = (props) => {
   const date = new Date();
+  const yearArr = [];
   const [filteredDate, setFilteredDate] = useState({
     month: date.toLocaleString("en-US", { month: "long" }),
     year: date.getFullYear(),
@@ -17,6 +18,10 @@ const Expenses = (props) => {
   };
 
   const filteredExpenses = props.items.filter((expense) => {
+    if (yearArr.indexOf(expense.date.getFullYear()) === -1) {
+      yearArr.push(expense.date.getFullYear());
+    }
+
     return (
       expense.date.getFullYear().toString() === filteredDate.year.toString() &&
       expense.date.toLocaleString("en-US", { month: "long" }) ===
@@ -26,6 +31,7 @@ const Expenses = (props) => {
   return (
     <Card className="expenses">
       <ExpensesFilter
+        yearArr={yearArr}
         selected={filteredDate}
         onChangeFilter={filterChangeHandler}
       />

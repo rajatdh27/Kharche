@@ -10,10 +10,13 @@ const ExpenseForm = (props) => {
       : date.getMinutes().toString();
 
   const [month, day, year] = date.toLocaleDateString().split("/");
+
   const [userInput, setUserInput] = useState({
     enteredTitle: "",
     enteredAmount: "",
-    enteredDate: `${year}-${month}-${day}`,
+    enteredDate: `${year}-${month < 10 ? `0${month}` : `${month}`}-${
+      day < 10 ? `0${day}` : `${day}`
+    }`,
     enteredTime: `${hr}:${min}`,
   });
   const titleHandler = (e) => {
@@ -60,7 +63,9 @@ const ExpenseForm = (props) => {
       return {
         enteredTitle: "",
         enteredAmount: "",
-        enteredDate: `${year}-${month}-${day}`,
+        enteredDate: `${year}-${month < 10 ? `0${month}` : `${month}`}-${
+          day < 10 ? `0${day}` : `${day}`
+        }`,
         enteredTime: `${hr}:${min}`,
       };
     });
