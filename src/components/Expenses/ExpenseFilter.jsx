@@ -5,10 +5,11 @@ import "./ExpenseFilter.css";
 const ExpenseFilter = (props) => {
   const [selectedDate, setSelectedDate] = useState(props.selected);
   const yearArr = props.yearArr;
-  yearArr.push(new Date().getFullYear());
+  if (yearArr.indexOf(new Date().getFullYear()) === -1) {
+    yearArr.push(new Date().getFullYear());
+  }
   yearArr.sort();
   yearArr.reverse();
-  console.log(yearArr);
   const dropdownChangeMonthHandler = (event) => {
     setSelectedDate((prevDate) => {
       return { ...prevDate, month: event.target.value };
@@ -55,7 +56,12 @@ const ExpenseFilter = (props) => {
             onChange={dropdownChangeYearHandler}
           >
             {yearArr.map((year) => {
-              return <option value={`${year}`} key={year}>{`${year}`}</option>;
+              return (
+                <option
+                  value={`${year}`}
+                  key={Math.random()}
+                >{`${year}`}</option>
+              );
             })}
           </select>
         </div>

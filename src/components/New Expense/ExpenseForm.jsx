@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ExpenseServices from "../../services/expenseServices";
 import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
@@ -43,15 +44,19 @@ const ExpenseForm = (props) => {
       return { ...prevState, enteredTime: time };
     });
   };
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     const [year, month, date] = userInput.enteredDate.split("-");
     const [hour, minute] = userInput.enteredTime.split(":");
-    const expenseDate = {
-      title: userInput.enteredTitle,
-      amount: userInput.enteredAmount,
-      date: new Date(year, month - 1, date, hour, minute),
-    };
+    try {
+      await ExpenseServices.addExpense({
+        amount: userInput.enteredAmount,
+        title: userInput.enteredTitle,
+        date: `${year},${month - 1},${date},${hour},${minute}`,
+      });
+    } catch (err) {
+      console.log(err);
+    }
     setUserInput(() => {
       const date = new Date();
       const hr = date.getHours().toString();
@@ -69,7 +74,6 @@ const ExpenseForm = (props) => {
         enteredTime: `${hr}:${min}`,
       };
     });
-    props.onSaveExpenseData(expenseDate);
   };
   return (
     <form onSubmit={submitHandler}>
