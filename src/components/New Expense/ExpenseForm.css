@@ -12,7 +12,8 @@
   display: block;
 }
 
-.new-expense__control input {
+.new-expense__control input,
+select {
   font: inherit;
   padding: 0.5rem;
   border-radius: 6px;

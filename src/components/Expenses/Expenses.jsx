@@ -9,6 +9,7 @@ import "./Expenses.css";
 const Expenses = (props) => {
   const date = new Date();
   const yearArr = [];
+  let amount = 0;
   const [filteredDate, setFilteredDate] = useState({
     month: date.toLocaleString("en-US", { month: "long" }),
     year: date.getFullYear(),
@@ -21,12 +22,15 @@ const Expenses = (props) => {
     if (yearArr.indexOf(expense.date.getFullYear()) === -1) {
       yearArr.push(expense.date.getFullYear());
     }
-
     return (
       expense.date.getFullYear().toString() === filteredDate.year.toString() &&
       expense.date.toLocaleString("en-US", { month: "long" }) ===
         filteredDate.month
     );
+  });
+  filteredExpenses.map((item) => {
+    amount = amount + Number(item.amount);
+    return true;
   });
   return (
     <Card className="expenses">
@@ -35,9 +39,15 @@ const Expenses = (props) => {
         selected={filteredDate}
         onChangeFilter={filterChangeHandler}
       />
-      {filteredExpenses.length === 0 && <h1>No Expenses!</h1>}
+      {filteredExpenses.length <= 0 && <h1>No Expenses!</h1>}
       {filteredExpenses.length > 0 && (
         <Chart dt={filteredDate} data={filteredExpenses} />
+      )}
+      {filteredExpenses.length > 0 && (
+        <div className="totalExpense">
+          <h2>Expenditure</h2>
+          <h2>&#x20b9;{amount}</h2>
+        </div>
       )}
       {filteredExpenses.map((item) => {
         return (
@@ -45,6 +55,7 @@ const Expenses = (props) => {
             title={item.title}
             amount={item.amount}
             date={item.date}
+            label={item.label}
             key={item.id}
           />
         );

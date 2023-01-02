@@ -21,7 +21,13 @@
 
 /*heading properties*/
 .expense-item h2 {
-  color: #3a3a3a;
+  font-size: 1.3rem;
+  font-weight: 900;
+  flex: 1;
+  margin: 0;
+  color: #341948;
+}
+.expense-item h3 {
   font-size: 1rem;
   flex: 1;
   margin: 0;
@@ -39,7 +45,6 @@
   border-radius: 12px;
 }
 
-
 /*for mobile version*/
 
 @media (min-width: 580px) {
@@ -51,7 +56,7 @@
   }
 
   .expense-item__description h2 {
-    font-size: 1.25rem;
+    font-size: 1.6rem;
   }
 
   .expense-item__price {

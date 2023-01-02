@@ -1,14 +1,16 @@
 import React from "react";
 import "./ExpenseItems.css";
-import ExpenseDate from "./ExpenseDate";
+import ExpenseData from "./ExpenseData";
 import Card from "../UI/Card";
 
 function ExpenseItems(props) {
+  console.log("data", props);
   return (
     <Card className="expense-item">
-      <ExpenseDate date={props.date} />
+      <ExpenseData date={props.date} label={props.label} />
       <div className="expense-item__description">
-        <h2>{props.title}</h2>
+        <h2>{props.label}</h2>
+        <h3>{props.title}</h3>
         <div className="expense-item__price">&#x20b9;{`${props.amount}`}</div>
       </div>
     </Card>
