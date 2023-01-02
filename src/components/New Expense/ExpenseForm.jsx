@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ExpenseServices from "../../services/expenseServices";
 import "./ExpenseForm.css";
 
@@ -20,6 +20,9 @@ const ExpenseForm = (props) => {
     }`,
     enteredTime: `${hr}:${min}`,
   });
+  useEffect(() => {
+    console.log("Hello");
+  }, [userInput]);
   const titleHandler = (e) => {
     const title = e.target.value;
     setUserInput((prevState) => {
@@ -54,6 +57,7 @@ const ExpenseForm = (props) => {
         title: userInput.enteredTitle,
         date: `${year},${month - 1},${date},${hour},${minute}`,
       });
+      props.onRefresh();
     } catch (err) {
       console.log(err);
     }
