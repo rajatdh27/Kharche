@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 const t = new Date().toLocaleTimeString();
 function Navbar() {
@@ -31,12 +32,21 @@ function Navbar() {
       <div className="navbar">
         <h1 className="logo">Kharche</h1>
         <div className="elements">
-          <i className="fa-solid fa-house child">
-            <p>Home</p>
-          </i>
-          <i className="fa-solid fa-database child">
-            <p>Data</p>
-          </i>
+          <Link to="/" className="link">
+            <i className="fa-solid fa-house child">
+              <p>Home</p>
+            </i>
+          </Link>
+          <Link to="/data" className="link">
+            <i className="fa-solid fa-database child">
+              <p>Data</p>
+            </i>
+          </Link>
+          <Link to="/profile" className="link">
+            <i class="fa-solid fa-user child">
+              <p>Profile</p>
+            </i>
+          </Link>
           <h2>{time}</h2>
         </div>
       </div>

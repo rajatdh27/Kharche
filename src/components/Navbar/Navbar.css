@@ -41,6 +41,16 @@
   gap: 4rem;
   align-items: center;
 }
+.navbar .elements .link {
+  text-decoration: none;
+}
+.navbar .elements .link:hover,
+.navbar .elements .link:active,
+.navbar .elements .link:link,
+.navbar .elements .link:focus,
+.navbar .elements .link:visited {
+  text-decoration: none;
+}
 
 .navbar .elements i {
   align-items: center;
@@ -60,7 +70,6 @@
   cursor: pointer;
 }
 .navbar .elements .child:hover {
-  color: rgb(52, 25, 72);
   transform: scale(0.9);
 }
 

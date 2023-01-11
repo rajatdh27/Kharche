@@ -42,8 +42,21 @@ function Card(props) {
   };
   const submitHandlerLogin = (e) => {
     e.preventDefault();
-    props.login();
-    console.log(props.data);
+    if (
+      props.data.email.trim().length === 0 ||
+      props.data.password.trim().length === 0
+    ) {
+      setErrorState((prevState) => {
+        return {
+          ...prevState,
+          invalid: true,
+          message: "Found empty field",
+        };
+      });
+    }else{
+      props.login();
+      console.log(props.data);
+    }
   };
   return (
     <>
@@ -51,12 +64,12 @@ function Card(props) {
         <h1>Kharche</h1>
         <h2>Keep It In Check ✅</h2>
         {errorState.invalid ? (
-        <div className={styles.invalid}>
-          <h2>{errorState.message}</h2>
-        </div>
-      ) : (
-        ""
-      )}
+          <div className={styles.invalid}>
+            <h2>{errorState.message}</h2>
+          </div>
+        ) : (
+          ""
+        )}
         <div className={styles.card}>
           <form
             className={styles.form}
