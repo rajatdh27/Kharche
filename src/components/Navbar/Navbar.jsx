@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
 import "./Navbar.css";
 const t = new Date().toLocaleTimeString();
-function Navbar() {
+function Navbar(props) {
+  const navigate = useNavigate();
   const myDate = new Date();
   const hrs = myDate.getHours();
   let greet = "";
@@ -22,12 +26,24 @@ function Navbar() {
     setTime(t1);
   };
   setInterval(currentTime, 1000);
+  const signOutHandler = () => {
+    signOut(auth)
+      .then(() => {
+        props.signOut();
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    console.log("started");
+  };
 
   return (
     <>
       <div className="nav_mobile">
         <h1>{greet} ! </h1>
-        <h2>phenominal 🙂</h2>
+        <h2>{props.email} 🙂</h2>
+        <h2>{time}</h2>
       </div>
       <div className="navbar">
         <h1 className="logo">Kharche</h1>
@@ -43,11 +59,17 @@ function Navbar() {
             </i>
           </Link>
           <Link to="/profile" className="link">
-            <i class="fa-solid fa-user child">
+            <i className="fa-solid fa-user child">
               <p>Profile</p>
             </i>
           </Link>
-          <h2>{time}</h2>
+          <i
+            className="fa-solid fa-right-from-bracket child"
+            onClick={signOutHandler}
+          >
+            <p>Log Out</p>
+          </i>
+          <h2 className="time">{time}</h2>
         </div>
       </div>
     </>

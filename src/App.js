@@ -10,6 +10,28 @@ import ExpenseServices from "./services/expenseServices";
 
 function App() {
   const [expenses, setExpenses] = useState([]);
+  const [user, setUser] = useState({
+    email: "",
+    uid: "",
+  });
+  if (user.email !== "") {
+    console.log("user", user);
+  }
+  const signOut = () => {
+    setUser({
+      email: "",
+      uid: "",
+    });
+  };
+  const userHandler = (data) => {
+    console.log(data);
+    setUser((prevState) => {
+      return {
+        ...prevState,
+        ...data,
+      };
+    });
+  };
   const fetchData = async () => {
     try {
       const data = await ExpenseServices.getAllExpenses();
@@ -44,16 +66,19 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/login" element={<Login />} />
+        <Route
+          exact
+          path="/login"
+          element={<Login userHandler={userHandler} />}
+        />
         <Route exact path="/signup" element={<SignUp />} />
         <Route
           exact
           path="/"
           element={
             <>
-              <Navbar />
+              <Navbar signOut={signOut} email={user.email} />
               <NewExpense onRefresh={onRefresh} />
-              {/* <Expenses items={expenses} /> */}
             </>
           }
         />

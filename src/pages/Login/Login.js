@@ -20,9 +20,11 @@ function Login(props) {
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        console.log(currentUser);
-        // props.userHandler(currentUser);
-        // navigate("/");
+        props.userHandler({
+          email: currentUser.email,
+          uid: currentUser.uid,
+        });
+        navigate("/");
       }
     });
   }, []);
