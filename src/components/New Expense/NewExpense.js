@@ -8,8 +8,10 @@ const NewExpense = (props) => {
     props.onRefresh();
   };
   return (
-    <div className="new-expense">
-      <ExpenseForm onRefresh={refresh} />
+    <div className="container">
+      <div className="new-expense">
+        <ExpenseForm onRefresh={refresh} />
+      </div>
     </div>
   );
 };

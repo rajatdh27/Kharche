@@ -4,7 +4,6 @@ import ExpenseData from "./ExpenseData";
 import Card from "../UI/Card";
 
 function ExpenseItems(props) {
-  console.log("data", props);
   return (
     <Card className="expense-item">
       <ExpenseData date={props.date} label={props.label} />

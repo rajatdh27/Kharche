@@ -14,6 +14,7 @@
 
 .new-expense__control input,
 select {
+  background-color: white;
   font: inherit;
   padding: 0.5rem;
   border-radius: 6px;

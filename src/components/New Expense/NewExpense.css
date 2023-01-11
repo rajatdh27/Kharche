@@ -1,4 +1,13 @@
-.new-expense {
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35rem;
+  margin-top: 4rem;
+  margin-bottom: 5rem;
+}
+
+.container .new-expense {
   background-color: #9388a2;
   padding: 1rem;
   margin: 5rem auto;
@@ -9,7 +18,7 @@
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
 }
 
-.new-expense button {
+.container .new-expense button {
   background: #341948;
   color: white;
   padding: 1.5rem;
@@ -29,7 +38,7 @@
   padding-right: 3.3em;
 }
 
-.new-expense button .icon {
+.container .new-expense button .icon {
   background: white;
   color: #341948;
   font-size: 1rem;
@@ -45,20 +54,20 @@
   transition: all 0.3s;
 }
 
-.new-expense button:hover .icon {
+.container .new-expense button:hover .icon {
   width: calc(100% - 0.6em);
 }
 
-.new-expense button:hover .icon svg {
+.container .new-expense button:hover .icon svg {
   transform: translateX(0.1em);
 }
 
-.new-expense button:active {
+.container .new-expense button:active {
   transform: scale(0.95);
 }
 
 /* @media (max-width: 450px) {
-  .new-expense button {
+  .container .new-expense button {
     width: 100%;
     text-align: center;
   }

@@ -1,0 +1,90 @@
+.cardWapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100vh;
+}
+
+.cardWapper h2 {
+  font-weight: 100;
+  font-size: 1.1rem;
+  color: grey;
+}
+
+.cardWapper .invalid {
+  background-color: #341948;
+  margin-bottom: 1rem;
+  width: 400px;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  text-align: center;
+}
+.cardWapper .invalid h2 {
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: white;
+}
+.cardWapper .card {
+  width: 400px;
+  background-color: white;
+  border-radius: 5px;
+  padding: 1rem 1.1rem;
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.564);
+  box-shadow: rgba(0, 0, 0, 0.527) 0px 14px 28px, black 0px 10px 10px;
+}
+
+.cardWapper .card .form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  gap: 0.1rem;
+}
+
+.cardWapper .card .form .title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.cardWapper .card .form .title h2 {
+  font-size: 1.5rem;
+  color: #341948;
+}
+
+@media (max-width: 450px) {
+  .cardWapper .card {
+    width: 350px;
+    font-size: 1rem;
+  }
+  .cardWapper .card {
+    padding: 1rem 1rem;
+  }
+  .invalid {
+    width: 350px;
+  }
+}
+
+@media (max-width: 385px) {
+  .cardWapper .card {
+    width: 300px;
+  }
+  .invalid {
+    width: 300px;
+  }
+}
+
+@media (max-width: 335px) {
+  .cardWapper .card {
+    width: 280px;
+  }
+  .invalid {
+    width: 280px;
+  }
+}

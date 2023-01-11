@@ -22,7 +22,6 @@ const ExpenseForm = (props) => {
     enteredTime: `${hr}:${min}`,
   });
   useEffect(() => {
-    console.log("Hello");
   }, [userInput]);
   const titleHandler = (e) => {
     const title = e.target.value;
@@ -44,14 +43,13 @@ const ExpenseForm = (props) => {
   };
   const dateHandler = (e) => {
     const date = e.target.value;
-    console.log(date);
     setUserInput((prevState) => {
       return { ...prevState, enteredDate: date };
     });
   };
   const timeHandler = (e) => {
     const time = e.target.value;
-    console.log(time);
+    console.log("time: ", time);
     setUserInput((prevState) => {
       return { ...prevState, enteredTime: time };
     });

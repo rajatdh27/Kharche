@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Navbar.css";
-import kharcheLogo from "../../assests/kharche_logo.png";
 const t = new Date().toLocaleTimeString();
 function Navbar() {
   const myDate = new Date();
@@ -30,10 +29,14 @@ function Navbar() {
         <h2>phenominal 🙂</h2>
       </div>
       <div className="navbar">
-        <img className="logo" src={kharcheLogo} alt="Kharche" />
+        <h1 className="logo">Kharche</h1>
         <div className="elements">
-          <i className="fa-solid fa-house fa-xl child"></i>
-          <i className="fa-solid fa-user fa-xl child"></i>
+          <i className="fa-solid fa-house child">
+            <p>Home</p>
+          </i>
+          <i className="fa-solid fa-database child">
+            <p>Data</p>
+          </i>
           <h2>{time}</h2>
         </div>
       </div>

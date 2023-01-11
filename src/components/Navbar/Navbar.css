@@ -9,6 +9,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 100;
   background: rgb(147, 136, 162);
   background: radial-gradient(
     circle,
@@ -27,8 +28,7 @@
   font-size: 1.1rem;
 }
 .navbar .logo {
-  width: 3rem;
-  height: 3rem;
+  display: inline;
 }
 
 .navbar h2 {
@@ -37,23 +37,38 @@
 
 .navbar .elements {
   display: flex;
+  font-size: 1.5rem;
   gap: 4rem;
   align-items: center;
 }
 
+.navbar .elements i {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  height: 100%;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+.navbar .elements i p {
+  font-size: 0.6rem;
+  letter-spacing: 0.2rem;
+}
+
 .navbar .elements .child {
   color: white;
+  cursor: pointer;
 }
 .navbar .elements .child:hover {
-  color: rgba(52, 25, 72, 1);
-  transform: scale(0.8);
+  color: rgb(52, 25, 72);
+  transform: scale(0.9);
 }
 
 .navbar .elements .child:active {
   color: rgba(147, 136, 162, 1);
-  transform: scale(0.9);
+  transform: scale(0.95);
 }
-@media (max-width: 500px) {
+@media (max-width: 520px) {
   .navbar {
     position: fixed;
     bottom: 0;
@@ -73,8 +88,7 @@
     background: transparent;
   }
   .navbar .logo {
-    width: 0;
-    height: 0;
+    display: none;
   }
   .navbar .elements {
     width: 100%;
