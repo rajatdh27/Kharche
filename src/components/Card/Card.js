@@ -1,10 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Card.module.css";
 function Card(props) {
+  useEffect(() => {
+    console.log("running");
+    if (props.message !== "") {
+      const [, err1] = props.message.split("auth/");
+      const [err2] = err1.split(")");
+      console.log(err2, "err");
+      firebaseErrorHandler(err2);
+    }
+  }, [props.message]);
   const [errorState, setErrorState] = useState({
     invalid: false,
     message: "",
   });
+  const firebaseErrorHandler = (message) => {
+    setErrorState((prevState) => {
+      return {
+        ...prevState,
+        invalid: true,
+        message: message,
+      };
+    });
+  };
   const submitHandlerSignIn = (e) => {
     e.preventDefault();
     if (
@@ -53,7 +71,7 @@ function Card(props) {
           message: "Found empty field",
         };
       });
-    }else{
+    } else {
       props.login();
       console.log(props.data);
     }

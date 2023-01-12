@@ -17,6 +17,9 @@ function Login(props) {
     open: faEye,
     close: faEyeSlash,
   };
+  const [err, setError] = useState({
+    message: "",
+  });
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -27,7 +30,7 @@ function Login(props) {
         navigate("/");
       }
     });
-  }, []);
+  }, [props, navigate]);
   const [userInput, setUserInput] = useState({
     email: "",
     password: "",
@@ -59,11 +62,21 @@ function Login(props) {
         // ...
       })
       .catch((error) => {
+        setError(() => {
+          return {
+            message: error.message,
+          };
+        });
         console.log(error.message);
       });
   };
   return (
-    <Card name="Login" data={userInput} login={requestHandler}>
+    <Card
+      name="Login"
+      data={userInput}
+      login={requestHandler}
+      message={err.message}
+    >
       <div className={styles.inputs}>
         <div className={styles.inputContainer}>
           <label>Email:</label>

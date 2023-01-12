@@ -3,6 +3,7 @@ import Expenses from "./components/Expenses/Expenses";
 import Navbar from "./components/Navbar/Navbar";
 import NewExpense from "./components/New Expense/NewExpense";
 import Login from "./pages/Login/Login";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import SignUp from "./pages/SignUp/SignUp";
 import { Routes, Route } from "react-router-dom";
 import ExpenseServices from "./services/expenseServices";
@@ -71,27 +72,31 @@ function App() {
           path="/login"
           element={<Login userHandler={userHandler} />}
         />
+        <Route
+          element={<ProtectedRoute auth={user.uid !== "" ? true : false} />}
+        >
+          <Route
+            exact
+            path="/"
+            element={
+              <>
+                <Navbar signOut={signOut} email={user.email} />
+                <NewExpense onRefresh={onRefresh} />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/data"
+            element={
+              <>
+                <Navbar signOut={signOut} email={user.email}  />
+                <Expenses items={expenses} />
+              </>
+            }
+          />
+        </Route>
         <Route exact path="/signup" element={<SignUp />} />
-        <Route
-          exact
-          path="/"
-          element={
-            <>
-              <Navbar signOut={signOut} email={user.email} />
-              <NewExpense onRefresh={onRefresh} />
-            </>
-          }
-        />
-        <Route
-          exact
-          path="/data"
-          element={
-            <>
-              <Navbar />
-              <Expenses items={expenses} />
-            </>
-          }
-        />
       </Routes>
     </>
   );

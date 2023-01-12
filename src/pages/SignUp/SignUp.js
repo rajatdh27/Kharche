@@ -21,11 +21,14 @@ function SignUp(props) {
         navigate("/");
       }
     });
-  }, []);
+  }, [props, navigate]);
   const icons = {
     open: faEye,
     close: faEyeSlash,
   };
+  const [err, setError] = useState({
+    message: "",
+  });
   const [toggle, setToggle] = useState({
     passwordToggle: false,
     confirmPasswordToggle: false,
@@ -49,6 +52,11 @@ function SignUp(props) {
       console.log(user.user.uid);
       await dataServices.setData(user.user.uid, userInput);
     } catch (error) {
+      setError(() => {
+        return {
+          message: error.message,
+        };
+      });
       console.log(error.message);
     }
   };
@@ -103,6 +111,7 @@ function SignUp(props) {
       data={userInput}
       dataHandler={dataHandler}
       userCreationHandler={register}
+      message={err.message}
     >
       <div className={styles.inputs}>
         <div className={styles.inputContainer}>
