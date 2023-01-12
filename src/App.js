@@ -15,9 +15,6 @@ function App() {
     email: "",
     uid: "",
   });
-  if (user.email !== "") {
-    console.log("user", user);
-  }
   const signOut = () => {
     setUser({
       email: "",
@@ -25,7 +22,6 @@ function App() {
     });
   };
   const userHandler = (data) => {
-    console.log(data);
     setUser((prevState) => {
       return {
         ...prevState,
@@ -90,13 +86,17 @@ function App() {
             path="/data"
             element={
               <>
-                <Navbar signOut={signOut} email={user.email}  />
+                <Navbar signOut={signOut} email={user.email} />
                 <Expenses items={expenses} />
               </>
             }
           />
         </Route>
-        <Route exact path="/signup" element={<SignUp />} />
+        <Route
+          exact
+          path="/signup"
+          element={<SignUp userHandler={userHandler} />}
+        />
       </Routes>
     </>
   );

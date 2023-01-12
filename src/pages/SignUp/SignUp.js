@@ -16,7 +16,6 @@ function SignUp(props) {
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        console.log(currentUser);
         props.userHandler(currentUser);
         navigate("/");
       }
@@ -49,7 +48,6 @@ function SignUp(props) {
         userInput.email,
         userInput.password
       );
-      console.log(user.user.uid);
       await dataServices.setData(user.user.uid, userInput);
     } catch (error) {
       setError(() => {
@@ -57,7 +55,6 @@ function SignUp(props) {
           message: error.message,
         };
       });
-      console.log(error.message);
     }
   };
   const nameHandler = (e) => {

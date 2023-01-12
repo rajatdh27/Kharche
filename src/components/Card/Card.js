@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import styles from "./Card.module.css";
 function Card(props) {
   useEffect(() => {
-    console.log("running");
     if (props.message !== "") {
       const [, err1] = props.message.split("auth/");
       const [err2] = err1.split(")");
-      console.log(err2, "err");
       firebaseErrorHandler(err2);
     }
   }, [props.message]);
@@ -73,7 +71,6 @@ function Card(props) {
       });
     } else {
       props.login();
-      console.log(props.data);
     }
   };
   return (

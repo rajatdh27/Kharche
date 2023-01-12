@@ -55,19 +55,13 @@ function Login(props) {
   };
   const requestHandler = () => {
     signInWithEmailAndPassword(auth, userInput.email, userInput.password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        // ...
-      })
+      .then()
       .catch((error) => {
         setError(() => {
           return {
             message: error.message,
           };
         });
-        console.log(error.message);
       });
   };
   return (

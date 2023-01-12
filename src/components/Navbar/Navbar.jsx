@@ -35,7 +35,6 @@ function Navbar(props) {
       .catch((error) => {
         console.log(error);
       });
-    console.log("started");
   };
 
   return (
