@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Expenses from "./components/Expenses/Expenses";
+import { getDocs, collection } from "firebase/firestore";
+import { db } from "./firebaseConfig";
 import Navbar from "./components/Navbar/Navbar";
 import NewExpense from "./components/New Expense/NewExpense";
 import Login from "./pages/Login/Login";
@@ -31,8 +33,11 @@ function App() {
   };
   const fetchData = async () => {
     try {
+      const xi = await getDocs(collection(db, `expenseData/${user.uid}/data/`));
+      console.log(xi);
       const data = await ExpenseServices.getAllExpenses();
-      const d = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      console.log(data);
+      const d = xi.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       const x = d.map((y) => {
         const dt = y.date.split(",");
         return {
@@ -55,8 +60,10 @@ function App() {
     }
   };
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (user.uid !== "") {
+      fetchData();
+    }
+  }, [user.uid]);
   const onRefresh = () => {
     fetchData();
   };
@@ -77,7 +84,7 @@ function App() {
             element={
               <>
                 <Navbar signOut={signOut} email={user.email} />
-                <NewExpense onRefresh={onRefresh} />
+                <NewExpense onRefresh={onRefresh} uid={user.uid} />
               </>
             }
           />

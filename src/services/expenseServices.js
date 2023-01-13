@@ -6,6 +6,7 @@ import {
   addDoc,
   updateDoc,
   deleteDoc,
+  setDoc,
   doc,
 } from "firebase/firestore";
 
@@ -14,6 +15,9 @@ const expenseCollectionRef = collection(db, "expenses");
 class ExpenseService {
   addExpense = (newExpense) => {
     return addDoc(expenseCollectionRef, newExpense);
+  };
+  setData = (id, data) => {
+    return setDoc(doc(db, "expenseData", id), data);
   };
   updateExpense = (id, updatedExpense) => {
     const expenseDoc = doc(db, "expenses", id);
@@ -30,7 +34,7 @@ class ExpenseService {
   };
 
   getExpense = (id) => {
-    const expenseDoc = doc(db, "expenses", id);
+    const expenseDoc = doc(db, "expenseData", id);
     return getDoc(expenseDoc);
   };
 }

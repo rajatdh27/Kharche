@@ -10,7 +10,7 @@ const NewExpense = (props) => {
   return (
     <div className="container">
       <div className="new-expense">
-        <ExpenseForm onRefresh={refresh} />
+        <ExpenseForm onRefresh={refresh} uid={props.uid} />
       </div>
     </div>
   );

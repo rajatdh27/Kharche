@@ -46,7 +46,7 @@ const Expenses = (props) => {
       {filteredExpenses.length > 0 && (
         <div className="totalExpense">
           <h2>Expenditure</h2>
-          <h2>&#x20b9;{amount}</h2>
+          <h2>&#x20b9;{parseFloat(amount).toFixed(2)}</h2>
         </div>
       )}
       {filteredExpenses.map((item) => {

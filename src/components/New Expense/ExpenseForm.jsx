@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebaseConfig";
 import ExpenseServices from "../../services/expenseServices";
 import "./ExpenseForm.css";
 
@@ -21,8 +23,7 @@ const ExpenseForm = (props) => {
     }`,
     enteredTime: `${hr}:${min}`,
   });
-  useEffect(() => {
-  }, [userInput]);
+  useEffect(() => {}, [userInput]);
   const titleHandler = (e) => {
     const title = e.target.value;
     setUserInput((prevState) => {
@@ -59,7 +60,25 @@ const ExpenseForm = (props) => {
     const [year, month, date] = userInput.enteredDate.split("-");
     const [hour, minute] = userInput.enteredTime.split(":");
     try {
-      await ExpenseServices.addExpense({
+      // await ExpenseServices.addExpense({
+      //   amount: userInput.enteredAmount,
+      //   label: userInput.enteredLabel,
+      //   title: userInput.enteredTitle,
+      //   date: `${year},${month - 1},${date},${hour},${minute}`,
+      // });
+      // await ExpenseServices.setData(props.uid,{
+      //     amount: userInput.enteredAmount,
+      //     label: userInput.enteredLabel,
+      //     title: userInput.enteredTitle,
+      //     date: `${year},${month - 1},${date},${hour},${minute}`,
+      //   })
+      console.log({
+        amount: userInput.enteredAmount,
+        label: userInput.enteredLabel,
+        title: userInput.enteredTitle,
+        date: `${year},${month - 1},${date},${hour},${minute}`,
+      });
+      addDoc(collection(db, `expenseData/${props.uid}/data/`), {
         amount: userInput.enteredAmount,
         label: userInput.enteredLabel,
         title: userInput.enteredTitle,
@@ -80,6 +99,7 @@ const ExpenseForm = (props) => {
       return {
         enteredTitle: "",
         enteredAmount: "",
+        enteredLabel: "Food",
         enteredDate: `${year}-${month < 10 ? `0${month}` : `${month}`}-${
           day < 10 ? `0${day}` : `${day}`
         }`,
