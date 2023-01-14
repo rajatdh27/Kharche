@@ -8,7 +8,6 @@ import Login from "./pages/Login/Login";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import SignUp from "./pages/SignUp/SignUp";
 import { Routes, Route } from "react-router-dom";
-import ExpenseServices from "./services/expenseServices";
 //const expenses = ;
 
 function App() {
@@ -16,6 +15,7 @@ function App() {
   const [user, setUser] = useState({
     email: "",
     uid: "",
+    userName: "",
   });
   const signOut = () => {
     setUser({
@@ -34,9 +34,10 @@ function App() {
   const fetchData = async () => {
     try {
       const xi = await getDocs(collection(db, `expenseData/${user.uid}/data/`));
-      console.log(xi);
-      const data = await ExpenseServices.getAllExpenses();
-      console.log(data);
+      const yi = await getDocs(
+        collection(db, `userData/${user.uid}/userDetails/`)
+      );
+      const z = yi.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       const d = xi.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       const x = d.map((y) => {
         const dt = y.date.split(",");
@@ -51,7 +52,12 @@ function App() {
           ),
         };
       });
-
+      setUser((prevState) => {
+        return {
+          ...prevState,
+          userName: z[0].userName,
+        };
+      });
       setExpenses(() => {
         return [...x];
       });
@@ -83,7 +89,7 @@ function App() {
             path="/"
             element={
               <>
-                <Navbar signOut={signOut} email={user.email} />
+                <Navbar signOut={signOut} email={user.userName} />
                 <NewExpense onRefresh={onRefresh} uid={user.uid} />
               </>
             }
@@ -93,7 +99,7 @@ function App() {
             path="/data"
             element={
               <>
-                <Navbar signOut={signOut} email={user.email} />
+                <Navbar signOut={signOut} email={user.userName} />
                 <Expenses items={expenses} />
               </>
             }

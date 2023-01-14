@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
-import ExpenseServices from "../../services/expenseServices";
+import { useNavigate } from "react-router-dom";
 import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
+  const navigate = useNavigate();
   const date = new Date();
-  const hr = date.getHours().toString();
+  const hr =
+    date.getHours().toString() < 10
+      ? `0${date.getHours().toString()}`
+      : date.getHours().toString();
   const min =
     date.getMinutes().toString() < 10
       ? `0${date.getMinutes().toString()}`
@@ -60,24 +64,6 @@ const ExpenseForm = (props) => {
     const [year, month, date] = userInput.enteredDate.split("-");
     const [hour, minute] = userInput.enteredTime.split(":");
     try {
-      // await ExpenseServices.addExpense({
-      //   amount: userInput.enteredAmount,
-      //   label: userInput.enteredLabel,
-      //   title: userInput.enteredTitle,
-      //   date: `${year},${month - 1},${date},${hour},${minute}`,
-      // });
-      // await ExpenseServices.setData(props.uid,{
-      //     amount: userInput.enteredAmount,
-      //     label: userInput.enteredLabel,
-      //     title: userInput.enteredTitle,
-      //     date: `${year},${month - 1},${date},${hour},${minute}`,
-      //   })
-      console.log({
-        amount: userInput.enteredAmount,
-        label: userInput.enteredLabel,
-        title: userInput.enteredTitle,
-        date: `${year},${month - 1},${date},${hour},${minute}`,
-      });
       addDoc(collection(db, `expenseData/${props.uid}/data/`), {
         amount: userInput.enteredAmount,
         label: userInput.enteredLabel,
@@ -85,12 +71,16 @@ const ExpenseForm = (props) => {
         date: `${year},${month - 1},${date},${hour},${minute}`,
       });
       props.onRefresh();
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
     setUserInput(() => {
       const date = new Date();
-      const hr = date.getHours().toString();
+      const hr =
+        date.getHours().toString() < 10
+          ? `0${date.getHours().toString()}`
+          : date.getHours().toString();
       const min =
         date.getMinutes().toString() < 10
           ? `0${date.getMinutes().toString()}`

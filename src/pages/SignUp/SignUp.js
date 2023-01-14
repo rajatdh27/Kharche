@@ -3,8 +3,9 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
-import dataServices from "../../services/expenseServices";
 import { auth } from "../../firebaseConfig";
 import styles from "./SignUp.module.css";
 import Button from "../../components/Button/Button";
@@ -41,14 +42,18 @@ function SignUp(props) {
   });
 
   const register = async () => {
-    console.log("register");
     try {
-      const user = await createUserWithEmailAndPassword(
+      const x = await createUserWithEmailAndPassword(
         auth,
         userInput.email,
         userInput.password
       );
-      await dataServices.setData(user.user.uid, userInput);
+      if (x.user.uid !== undefined) {
+        addDoc(collection(db, `userData/${x.user.uid}/userDetails/`), {
+          userName: userInput.userName,
+          name: userInput.name,
+        });
+      }
     } catch (error) {
       setError(() => {
         return {
