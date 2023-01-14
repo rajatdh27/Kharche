@@ -8,6 +8,7 @@ import Login from "./pages/Login/Login";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import SignUp from "./pages/SignUp/SignUp";
 import { Routes, Route } from "react-router-dom";
+import ForgotPassWord from "./pages/ForgotPassword/ForgotPassword";
 //const expenses = ;
 
 function App() {
@@ -110,6 +111,7 @@ function App() {
           path="/signup"
           element={<SignUp userHandler={userHandler} />}
         />
+        <Route exact path="/forgotpassword" element={<ForgotPassWord />} />
       </Routes>
     </>
   );

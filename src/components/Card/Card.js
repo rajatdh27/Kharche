@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Card.module.css";
 function Card(props) {
   useEffect(() => {
-    if (props.message !== "") {
+    if (props.message !== "" && props.message !== undefined) {
       const [, err1] = props.message.split("auth/");
       const [err2] = err1.split(")");
       firebaseErrorHandler(err2);
@@ -56,6 +56,28 @@ function Card(props) {
       });
     }
   };
+  const submitHandlerForget = (e) => {
+    e.preventDefault();
+    if (props.data.email.trim().length === 0) {
+      console.log("forget!");
+      setErrorState((prevState) => {
+        return {
+          ...prevState,
+          invalid: true,
+          message: "Found empty field",
+        };
+      });
+    } else {
+      props.forgotHandler();
+      setErrorState((prevState) => {
+        return {
+          ...prevState,
+          invalid: false,
+          message: "",
+        };
+      });
+    }
+  };
   const submitHandlerLogin = (e) => {
     e.preventDefault();
     if (
@@ -89,7 +111,11 @@ function Card(props) {
           <form
             className={styles.form}
             onSubmit={
-              props.name === "Login" ? submitHandlerLogin : submitHandlerSignIn
+              props.name === "Login"
+                ? submitHandlerLogin
+                : props.name === "Forgot Password"
+                ? submitHandlerForget
+                : submitHandlerSignIn
             }
           >
             <div className={styles.title}>

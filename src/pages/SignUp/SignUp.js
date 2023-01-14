@@ -10,6 +10,7 @@ import { auth } from "../../firebaseConfig";
 import styles from "./SignUp.module.css";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 function SignUp(props) {
@@ -177,6 +178,12 @@ function SignUp(props) {
         <div className={styles.button}>
           <Button buttonName="Sign Up" />
         </div>
+        <p>
+          Already a member?{" "}
+          <Link to="/login" className={styles.link}>
+            Login
+          </Link>
+        </p>
       </div>
     </Card>
   );

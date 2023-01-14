@@ -53,6 +53,9 @@ function Login(props) {
       return { ...prevInput, password: e.target.value };
     });
   };
+  const forgotPasswordHandler = () => {
+    navigate("/forgotpassword");
+  };
   const requestHandler = () => {
     signInWithEmailAndPassword(auth, userInput.email, userInput.password)
       .then()
@@ -106,7 +109,7 @@ function Login(props) {
             Sign Up
           </Link>
         </p>
-        <span>Forgot Password?</span>
+        <span onClick={forgotPasswordHandler}>Forgot Password?</span>
       </div>
     </Card>
   );
