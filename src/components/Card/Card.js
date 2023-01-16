@@ -6,6 +6,14 @@ function Card(props) {
       const [, err1] = props.message.split("auth/");
       const [err2] = err1.split(")");
       firebaseErrorHandler(err2);
+    }else if(props.message === ""){
+      setErrorState((prevState) => {
+        return {
+          ...prevState,
+          invalid: false,
+          message: "",
+        };
+      });
     }
   }, [props.message]);
   const [errorState, setErrorState] = useState({

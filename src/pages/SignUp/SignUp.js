@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebaseConfig";
@@ -15,6 +15,39 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 function SignUp(props) {
   const navigate = useNavigate();
+  const [disable, setDisable] = useState(false);
+  const [userInput, setUserInput] = useState({
+    name: "",
+    email: "",
+    userName: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const getUserName = useCallback(async () => {
+    const xi = await getDocs(collection(db, "userID"));
+    const user = xi.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    user.map(async (x) => {
+      const y = await getDocs(collection(db, `userData/${x.uid}/userDetails/`));
+      const usery = y.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      const u = { ...usery };
+      const userName = u[0].userName;
+      if (userName === userInput.userName) {
+        setDisable(true);
+        setError(() => {
+          return {
+            message: "xauth/User name has been taken)",
+          };
+        });
+      } else {
+        setDisable(false);
+        setError(() => {
+          return {
+            message: "",
+          };
+        });
+      }
+    });
+  }, [userInput.userName]);
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -22,7 +55,8 @@ function SignUp(props) {
         navigate("/");
       }
     });
-  }, [props, navigate]);
+    getUserName();
+  }, [props, navigate, userInput.userName, getUserName]);
   const icons = {
     open: faEye,
     close: faEyeSlash,
@@ -34,16 +68,10 @@ function SignUp(props) {
     passwordToggle: false,
     confirmPasswordToggle: false,
   });
-  const [userInput, setUserInput] = useState({
-    name: "",
-    email: "",
-    userName: "",
-    password: "",
-    confirmPassword: "",
-  });
 
   const register = async () => {
     try {
+      setDisable(true);
       const x = await createUserWithEmailAndPassword(
         auth,
         userInput.email,
@@ -56,6 +84,7 @@ function SignUp(props) {
         });
       }
     } catch (error) {
+      setDisable(false);
       setError(() => {
         return {
           message: error.message,
@@ -74,6 +103,7 @@ function SignUp(props) {
     });
   };
   const userNameHandler = (e) => {
+    //getUserName();
     setUserInput((prevInput) => {
       return { ...prevInput, userName: e.target.value };
     });
@@ -176,7 +206,7 @@ function SignUp(props) {
       </div>
       <div className={styles.buttonContainer}>
         <div className={styles.button}>
-          <Button buttonName="Sign Up" />
+          <Button buttonName="Sign Up" disables={disable} />
         </div>
         <p>
           Already a member?{" "}

@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../firebaseConfig";
-import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebaseConfig";
 import styles from "./ForgotPassword.module.css";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import { Link } from "react-router-dom";
 function ForgotPassWord(props) {
-  const navigate = useNavigate();
   const [userInput, setUserInput] = useState({
     email: "",
   });
