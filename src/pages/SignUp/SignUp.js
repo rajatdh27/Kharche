@@ -31,6 +31,7 @@ function SignUp(props) {
       const usery = y.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       const u = { ...usery };
       const userName = u[0].userName;
+      console.log(userName, userInput.userName);
       if (userName === userInput.userName) {
         setDisable(true);
         setError(() => {
@@ -38,7 +39,7 @@ function SignUp(props) {
             message: "xauth/User name has been taken)",
           };
         });
-      } else {
+      } else if (disable) {
         setDisable(false);
         setError(() => {
           return {
@@ -68,7 +69,16 @@ function SignUp(props) {
     passwordToggle: false,
     confirmPasswordToggle: false,
   });
-
+  const registerID = async (id) => {
+    console.log("regises");
+    try {
+      addDoc(collection(db, `userID/`), {
+        uid: id,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const register = async () => {
     try {
       setDisable(true);
@@ -82,6 +92,7 @@ function SignUp(props) {
           userName: userInput.userName,
           name: userInput.name,
         });
+        registerID(x.user.uid);
       }
     } catch (error) {
       setDisable(false);

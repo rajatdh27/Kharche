@@ -24,6 +24,7 @@ function App() {
       uid: "",
     });
   };
+
   const userHandler = (data) => {
     setUser((prevState) => {
       return {
