@@ -6,7 +6,7 @@ function Card(props) {
       const [, err1] = props.message.split("auth/");
       const [err2] = err1.split(")");
       firebaseErrorHandler(err2);
-    }else if(props.message === ""){
+    } else if (props.message === "") {
       setErrorState((prevState) => {
         return {
           ...prevState,
@@ -103,6 +103,10 @@ function Card(props) {
       props.login();
     }
   };
+  const submitHandlerProfile = (e) => {
+    e.preventDefault();
+    props.profile();
+  };
   return (
     <>
       <div className={styles.cardWapper}>
@@ -123,6 +127,8 @@ function Card(props) {
                 ? submitHandlerLogin
                 : props.name === "Forgot Password"
                 ? submitHandlerForget
+                : props.name === "Profile"
+                ? submitHandlerProfile
                 : submitHandlerSignIn
             }
           >

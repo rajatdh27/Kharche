@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Expenses from "./components/Expenses/Expenses";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "./firebaseConfig";
@@ -9,18 +9,19 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import SignUp from "./pages/SignUp/SignUp";
 import { Routes, Route } from "react-router-dom";
 import ForgotPassWord from "./pages/ForgotPassword/ForgotPassword";
+import Profile from "./pages/Profile/Profile";
 //const expenses = ;
 
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [user, setUser] = useState({
-    email: "",
     uid: "",
     userName: "",
+    name: "",
+    id: "",
   });
   const signOut = () => {
     setUser({
-      email: "",
       uid: "",
     });
   };
@@ -33,7 +34,7 @@ function App() {
       };
     });
   };
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const xi = await getDocs(collection(db, `expenseData/${user.uid}/data/`));
       const yi = await getDocs(
@@ -58,6 +59,8 @@ function App() {
         return {
           ...prevState,
           userName: z[0].userName,
+          name: z[0].name,
+          id: z[0].id,
         };
       });
       setExpenses(() => {
@@ -66,12 +69,12 @@ function App() {
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [user.uid]);
   useEffect(() => {
     if (user.uid !== "") {
       fetchData();
     }
-  }, [user.uid]);
+  }, [user.uid, fetchData]);
   const onRefresh = () => {
     fetchData();
   };
@@ -104,6 +107,19 @@ function App() {
                 <Navbar signOut={signOut} email={user.userName} />
                 <Expenses items={expenses} />
               </>
+            }
+          />
+          <Route
+            exact
+            path="/profile"
+            element={
+              <Profile
+                name={user.name}
+                userName={user.userName}
+                uid={user.uid}
+                id={user.id}
+                fetch={fetchData}
+              />
             }
           />
         </Route>

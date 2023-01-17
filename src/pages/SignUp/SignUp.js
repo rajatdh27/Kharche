@@ -31,7 +31,6 @@ function SignUp(props) {
       const usery = y.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       const u = { ...usery };
       const userName = u[0].userName;
-      console.log(userName, userInput.userName);
       if (userName === userInput.userName) {
         setDisable(true);
         setError(() => {
@@ -48,7 +47,7 @@ function SignUp(props) {
         });
       }
     });
-  }, [userInput.userName]);
+  }, [userInput.userName, disable]);
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
