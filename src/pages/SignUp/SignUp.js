@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendEmailVerification,
 } from "firebase/auth";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
@@ -50,7 +51,12 @@ function SignUp(props) {
   }, [userInput.userName, disable]);
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
+      if(currentUser&&!auth.currentUser.emailVerified){
+        setError(() => {
+          return { message: "xauth/Please check your mail and then refresh )" };
+        });
+      }else if (currentUser && auth.currentUser.emailVerified) {
+        setError({ message: "" });
         props.userHandler(currentUser);
         navigate("/");
       }
@@ -69,7 +75,6 @@ function SignUp(props) {
     confirmPasswordToggle: false,
   });
   const registerID = async (id) => {
-    console.log("regises");
     try {
       addDoc(collection(db, `userID/`), {
         uid: id,
@@ -86,6 +91,15 @@ function SignUp(props) {
         userInput.email,
         userInput.password
       );
+      if (x.user) {
+        sendEmailVerification(x.user).then(() => {
+          alert("Please check your email!");
+        });
+        setError(() => {
+          return { message: "xauth/Please check your mail and then refresh )" };
+        });
+      }
+
       if (x.user.uid !== undefined) {
         addDoc(collection(db, `userData/${x.user.uid}/userDetails/`), {
           userName: userInput.userName,
@@ -144,15 +158,10 @@ function SignUp(props) {
       };
     });
   };
-  const dataHandler = (data) => {
-    props.dataManipulation(data);
-    console.log(auth);
-  };
   return (
     <Card
       name="Sign Up"
       data={userInput}
-      dataHandler={dataHandler}
       userCreationHandler={register}
       message={err.message}
     >

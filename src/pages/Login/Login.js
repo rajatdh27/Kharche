@@ -22,7 +22,10 @@ function Login(props) {
   });
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
+      if (currentUser && !auth.currentUser.emailVerified) {
+        setError({ message: "xauth/Email not verified)" });
+      } else if (currentUser && auth.currentUser.emailVerified) {
+        setError({ message: "" });
         props.userHandler({
           email: currentUser.email,
           uid: currentUser.uid,
@@ -51,6 +54,9 @@ function Login(props) {
   const passwordHandler = (e) => {
     setUserInput((prevInput) => {
       return { ...prevInput, password: e.target.value };
+    });
+    setError(() => {
+      return { message: "" };
     });
   };
   const forgotPasswordHandler = () => {
