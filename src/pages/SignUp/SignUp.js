@@ -27,7 +27,6 @@ function SignUp(props) {
     confirmPassword: "",
   });
   const resendVerification = () => {
-    console.log(auth);
     auth.currentUser.reload();
     sendEmailVerification(auth.currentUser).then(() => {
       alert("Resent verification email!");
@@ -72,7 +71,7 @@ function SignUp(props) {
       }
     });
     getUserName();
-  }, [props, navigate, userInput.userName, getUserName, setDontWntToVerify]);
+  }, [props, navigate, userInput.userName, setDontWntToVerify]);
   const icons = {
     open: faEye,
     close: faEyeSlash,

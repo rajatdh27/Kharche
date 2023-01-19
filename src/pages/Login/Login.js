@@ -17,7 +17,6 @@ function Login(props) {
   const navigate = useNavigate();
   const [dontWntToVerify, setDontWntToVerify] = useState(false);
   const resendVerification = () => {
-    console.log(auth);
     auth.currentUser.reload();
     sendEmailVerification(auth.currentUser).then(() => {
       alert("Resent verification email!");
