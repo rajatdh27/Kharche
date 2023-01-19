@@ -5,11 +5,24 @@ import styles from "./Login.module.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  sendEmailVerification
+} from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 function Login(props) {
   const navigate = useNavigate();
+  const [dontWntToVerify, setDontWntToVerify] = useState(false);
+  const resendVerification = () => {
+    console.log(auth);
+    auth.currentUser.reload();
+    sendEmailVerification(auth.currentUser).then(() => {
+      alert("Resent verification email!");
+    });
+  };
   const [toggle, setToggle] = useState({
     passwordToggle: false,
   });
@@ -23,6 +36,7 @@ function Login(props) {
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser && !auth.currentUser.emailVerified) {
+        setDontWntToVerify(true);
         setError({ message: "xauth/Email not verified)" });
       } else if (currentUser && auth.currentUser.emailVerified) {
         setError({ message: "" });
@@ -106,16 +120,46 @@ function Login(props) {
         </div>
       </div>
       <div className={styles.buttonContainer}>
-        <div className={styles.button}>
-          <Button buttonName="Login" />
-        </div>
-        <p>
-          Not a member?{" "}
-          <Link to="/signup" className={styles.link}>
-            Sign Up
-          </Link>
-        </p>
-        <span onClick={forgotPasswordHandler}>Forgot Password?</span>
+        {!dontWntToVerify && (
+          <>
+            <div className={styles.button}>
+              <Button buttonName="Login" />
+            </div>
+            <p>
+              Not a member?{" "}
+              <Link to="/signup" className={styles.link}>
+                Sign Up
+              </Link>
+            </p>
+            <span onClick={forgotPasswordHandler}>Forgot Password?</span>
+          </>
+        )}
+        {dontWntToVerify && (
+          <>
+            <p
+              style={{
+                cursor: "pointer",
+                color: "#341948",
+                fontWeight: "900",
+                fontSize: "1.5rem",
+              }}
+              onClick={() => {
+                signOut(auth)
+                  .then(() => {
+                    navigate("/");
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              }}
+            >
+              Don't want to verify{" "}
+            </p>
+            <p style={{ cursor: "pointer" }} onClick={resendVerification}>
+              Resend Verification Link
+            </p>
+          </>
+        )}
       </div>
     </Card>
   );

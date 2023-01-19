@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   sendEmailVerification,
+  signOut,
 } from "firebase/auth";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
@@ -16,6 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 function SignUp(props) {
   const navigate = useNavigate();
+  const [dontWntToVerify, setDontWntToVerify] = useState(false);
   const [disable, setDisable] = useState(false);
   const [userInput, setUserInput] = useState({
     name: "",
@@ -24,6 +26,13 @@ function SignUp(props) {
     password: "",
     confirmPassword: "",
   });
+  const resendVerification = () => {
+    console.log(auth);
+    auth.currentUser.reload();
+    sendEmailVerification(auth.currentUser).then(() => {
+      alert("Resent verification email!");
+    });
+  };
   const getUserName = useCallback(async () => {
     const xi = await getDocs(collection(db, "userID"));
     const user = xi.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
@@ -51,18 +60,19 @@ function SignUp(props) {
   }, [userInput.userName, disable]);
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      if(currentUser&&!auth.currentUser.emailVerified){
+      if (currentUser && !auth.currentUser.emailVerified) {
+        setDontWntToVerify(true);
         setError(() => {
           return { message: "xauth/Please check your mail and then refresh )" };
         });
-      }else if (currentUser && auth.currentUser.emailVerified) {
+      } else if (currentUser && auth.currentUser.emailVerified) {
         setError({ message: "" });
         props.userHandler(currentUser);
         navigate("/");
       }
     });
     getUserName();
-  }, [props, navigate, userInput.userName, getUserName]);
+  }, [props, navigate, userInput.userName, getUserName, setDontWntToVerify]);
   const icons = {
     open: faEye,
     close: faEyeSlash,
@@ -224,15 +234,45 @@ function SignUp(props) {
         </div>
       </div>
       <div className={styles.buttonContainer}>
-        <div className={styles.button}>
-          <Button buttonName="Sign Up" disables={disable} />
-        </div>
-        <p>
-          Already a member?{" "}
-          <Link to="/login" className={styles.link}>
-            Login
-          </Link>
-        </p>
+        {!dontWntToVerify && (
+          <>
+            <div className={styles.button}>
+              <Button buttonName="Sign Up" disables={disable} />
+            </div>
+            <p>
+              Already a member?{" "}
+              <Link to="/login" className={styles.link}>
+                Login
+              </Link>
+            </p>
+          </>
+        )}
+        {dontWntToVerify && (
+          <>
+            <p
+              style={{
+                cursor: "pointer",
+                color: "#341948",
+                fontWeight: "900",
+                fontSize: "1.5rem",
+              }}
+              onClick={() => {
+                signOut(auth)
+                  .then(() => {
+                    navigate("/");
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              }}
+            >
+              Don't want to verify{" "}
+            </p>
+            <p style={{ cursor: "pointer" }} onClick={resendVerification}>
+              Resend Verification Link
+            </p>
+          </>
+        )}
       </div>
     </Card>
   );
