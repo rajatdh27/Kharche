@@ -105,7 +105,11 @@ function App() {
             element={
               <>
                 <Navbar signOut={signOut} email={user.userName} />
-                <Expenses items={expenses} />
+                <Expenses
+                  items={expenses}
+                  onRefresh={onRefresh}
+                  uid={user.uid}
+                />
               </>
             }
           />

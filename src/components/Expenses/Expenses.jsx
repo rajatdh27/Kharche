@@ -57,6 +57,9 @@ const Expenses = (props) => {
             date={item.date}
             label={item.label}
             key={item.id}
+            id={item.id}
+            uid={props.uid}
+            refresh={props.onRefresh}
           />
         );
       })}
