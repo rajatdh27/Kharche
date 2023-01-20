@@ -70,8 +70,7 @@ const ExpenseForm = (props) => {
         title: userInput.enteredTitle,
         date: `${year},${month - 1},${date},${hour},${minute}`,
       });
-      props.onRefresh();
-      navigate("/");
+      navigate("/data");
     } catch (err) {
       console.log(err);
     }
