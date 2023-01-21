@@ -11,6 +11,25 @@
   text-align: center;
 }
 
+.expenses .sort {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.5rem;
+  margin: 1rem 1rem;
+}
+.expenses .sort label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.expenses .sort select {
+  font: inherit;
+  width: 2rem;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
 .expenses .totalExpense {
   display: flex;
   align-items: center;

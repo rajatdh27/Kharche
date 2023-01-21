@@ -7,6 +7,8 @@ import Card from "../UI/Card";
 import "./Expenses.css";
 
 const Expenses = (props) => {
+  const [sortList, setSortList] = useState("new");
+
   const date = new Date();
   const yearArr = [];
   let amount = 0;
@@ -32,6 +34,21 @@ const Expenses = (props) => {
     amount = amount + Number(item.amount);
     return true;
   });
+
+  if (sortList === "new") {
+    filteredExpenses.sort((a, b) => {
+      const da = new Date(a.date),
+        db = new Date(b.date);
+      return db - da;
+    });
+  } else {
+    filteredExpenses.sort((a, b) => {
+      const da = new Date(a.date),
+        db = new Date(b.date);
+      return da - db;
+    });
+  }
+  // console.log(filteredExpenses);
   return (
     <Card className="expenses">
       <ExpensesFilter
@@ -44,10 +61,22 @@ const Expenses = (props) => {
         <Chart dt={filteredDate} data={filteredExpenses} />
       )}
       {filteredExpenses.length > 0 && (
-        <div className="totalExpense">
-          <h2>Expenditure</h2>
-          <h2>&#x20b9;{parseFloat(amount).toFixed(2)}</h2>
-        </div>
+        <>
+          <div className="totalExpense">
+            <h2>Expenditure</h2>
+            <h2>&#x20b9;{parseFloat(amount).toFixed(2)}</h2>
+          </div>
+          <div className="sort">
+            <select
+              onClick={(e) => {
+                setSortList(e.target.value);
+              }}
+            >
+              <option value="new">Newest First</option>
+              <option value="old">Oldest First</option>
+            </select>
+          </div>
+        </>
       )}
       {filteredExpenses.map((item) => {
         return (
