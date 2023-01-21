@@ -68,6 +68,7 @@ const Expenses = (props) => {
           </div>
           <div className="sort">
             <select
+              value={sortList}
               onClick={(e) => {
                 setSortList(e.target.value);
               }}
