@@ -19,6 +19,9 @@ const Expenses = (props) => {
   const filterChangeHandler = (selectedYear) => {
     setFilteredDate(selectedYear);
   };
+  const sortHandler = (e) => {
+    setSortList(e.target.value);
+  };
 
   const filteredExpenses = props.items.filter((expense) => {
     if (yearArr.indexOf(expense.date.getFullYear()) === -1) {
@@ -67,15 +70,7 @@ const Expenses = (props) => {
             <h2>&#x20b9;{parseFloat(amount).toFixed(2)}</h2>
           </div>
           <div className="sort">
-            <select
-              onTouchStart={(e) => {
-                setSortList(e.target.value);
-              }}
-              onClick={(e) => {
-                setSortList(e.target.value);
-              }}
-              onTouch
-            >
+            <select onChange={sortHandler}>
               <option value="new">Newest First</option>
               <option value="old">Oldest First</option>
             </select>
