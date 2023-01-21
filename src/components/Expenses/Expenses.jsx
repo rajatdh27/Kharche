@@ -68,10 +68,13 @@ const Expenses = (props) => {
           </div>
           <div className="sort">
             <select
-              value={sortList}
+              onTouchStart={(e) => {
+                setSortList(e.target.value);
+              }}
               onClick={(e) => {
                 setSortList(e.target.value);
               }}
+              onTouch
             >
               <option value="new">Newest First</option>
               <option value="old">Oldest First</option>

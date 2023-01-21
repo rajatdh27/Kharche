@@ -117,13 +117,16 @@ function App() {
             exact
             path="/profile"
             element={
-              <Profile
-                name={user.name}
-                userName={user.userName}
-                uid={user.uid}
-                id={user.id}
-                fetch={fetchData}
-              />
+              <>
+                <Navbar signOut={signOut} email={user.userName} />
+                <Profile
+                  name={user.name}
+                  userName={user.userName}
+                  uid={user.uid}
+                  id={user.id}
+                  fetch={fetchData}
+                />
+              </>
             }
           />
         </Route>
