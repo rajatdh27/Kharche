@@ -1,6 +1,13 @@
-/*expense container*/
-.expense-item {
+/* 
+.container {
+  height: 12rem;
+}
+
+.container .expense-item {
   display: flex;
+  width: 10rem;
+  height: 100%;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
@@ -8,34 +15,33 @@
   background-color: #9388a2;
 }
 
-/*desxription*/
-.expense-item__description {
+
+.container .expense-item__description {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   align-items: flex-end;
   flex-flow: column-reverse;
   justify-content: flex-start;
   flex: 1;
 }
 
-/*heading properties*/
-.expense-item h2 {
+
+.container .expense-item h2 {
   font-size: 1.3rem;
   font-weight: 900;
   flex: 1;
   margin: 0;
   color: #341948;
 }
-.expense-item h3 {
+.container .expense-item h3 {
   font-size: 1rem;
   flex: 1;
   margin: 0;
   color: white;
 }
 
-/*price */
-.expense-item__price__container {
+
+.container .expense-item__price__container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,26 +49,26 @@
   gap: 1rem;
 }
 
-.expense-item__price__container .button {
+.container .expense-item__price__container .button {
   font-size: 0.8rem;
   color: white;
-  background-color: #34194888;
+  background-color: #ba0f30;
   cursor: pointer;
   border: 1px solid white;
   padding: 0.5rem;
   border-radius: 12px;
 }
 
-.expense-item__price__container .button:hover {
-  background-color: #3419489d;
+.container .expense-item__price__container .button:hover {
+  background-color: #6b0318;
   font-size: 0.75rem;
 }
 
-.expense-item__price__container .button:active {
+.container .expense-item__price__container .button:active {
   background-color: #341948;
 }
 
-.expense-item__price__container .expense-item__price {
+.container .expense-item__price__container .container .expense-item__price {
   font-size: 1rem;
   font-weight: bold;
   color: white;
@@ -72,22 +78,109 @@
   border-radius: 12px;
 }
 
-/*for mobile version*/
+
 
 @media (min-width: 580px) {
-  .expense-item__description {
+  .container .expense-item__description {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     flex: 1;
   }
 
-  .expense-item__description h2 {
+  .container .expense-item__description h2 {
     font-size: 1.6rem;
   }
 
-  .expense-item__price__container .expense-item__price {
+  .container .expense-item__price__container .container .expense-item__price {
     font-size: 1.25rem;
     padding: 0.5rem 1.5rem;
   }
+} */
+
+.itemConatiner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background-color: #9388a2;
+  border-radius: 1rem;
+  min-width: 12rem;
+  min-height: 15rem;
+  padding: 0.5rem;
+  margin: 1rem;
+  height: 10rem;
+}
+
+.itemConatiner .date {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.itemConatiner .date .year {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: 0.02rem;
+  color: #341948;
+}
+.itemConatiner .date .month_day {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.02rem;
+}
+
+.itemConatiner .exp {
+  display: flex;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  width: 100%;
+  height: auto;
+  flex-direction: column;
+  align-items: center;
+}
+.itemConatiner .exp::-webkit-scrollbar {
+  display: none;
+}
+
+.itemConatiner .exp .label {
+  font-size: 1.7rem;
+  font-weight: 900;
+  letter-spacing: 0.02rem;
+  color: #341948;
+}
+
+.itemConatiner .exp .title {
+  word-break: break-all;
+  font-size: 1.2rem;
+}
+
+.itemConatiner .edit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.itemConatiner .edit .button {
+  font-size: 0.8rem;
+  color: white;
+  background-color: #ba0f30;
+  cursor: pointer;
+  border: 1px solid white;
+  padding: 0.5rem;
+  border-radius: 12px;
+}
+.itemConatiner .edit .time {
+  color: #341948;
+  font-weight: 900;
 }

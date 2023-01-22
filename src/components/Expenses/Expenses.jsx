@@ -77,20 +77,22 @@ const Expenses = (props) => {
           </div>
         </>
       )}
-      {filteredExpenses.map((item) => {
-        return (
-          <ExpenseItem
-            title={item.title}
-            amount={item.amount}
-            date={item.date}
-            label={item.label}
-            key={item.id}
-            id={item.id}
-            uid={props.uid}
-            refresh={props.onRefresh}
-          />
-        );
-      })}
+      <div className="items">
+        {filteredExpenses.map((item) => {
+          return (
+            <ExpenseItem
+              title={item.title}
+              amount={item.amount}
+              date={item.date}
+              label={item.label}
+              key={item.id}
+              id={item.id}
+              uid={props.uid}
+              refresh={props.onRefresh}
+            />
+          );
+        })}
+      </div>
     </Card>
   );
 };
