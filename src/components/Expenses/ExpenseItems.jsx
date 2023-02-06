@@ -1,7 +1,5 @@
 import React from "react";
 import "./ExpenseItems.css";
-import ExpenseData from "./ExpenseData";
-import Card from "../UI/Card";
 import { db } from "../../firebaseConfig";
 import { doc, deleteDoc } from "firebase/firestore";
 
@@ -23,19 +21,6 @@ function ExpenseItems(props) {
     props.refresh();
   };
   return (
-    // <Card className="expense-item">
-    //   <ExpenseData date={props.date} label={props.label} />
-    //   <div className="expense-item__description">
-    //     <h2>{props.label}</h2>
-    //     <h3>{props.title}</h3>
-    //     <div className="expense-item__price__container">
-    //       <div className="expense-item__price">&#x20b9;{`${props.amount}`}</div>
-    //       <button className="button" onClick={expenseDeleteHandler}>
-    //         Remove
-    //       </button>
-    //     </div>
-    //   </div>
-    // </Card>
     <div className="itemConatiner">
       <div className="date">
         <div className="year">
@@ -50,6 +35,9 @@ function ExpenseItems(props) {
       <div className="exp">
         <span className="label">{props.label}</span>
         <span className="title">{props.title}</span>
+      </div>
+      <div className="amt">
+        <span className="price"> &#x20B9;{props.amount}</span>
       </div>
       <div className="edit">
         <span className="time">{time}</span>
