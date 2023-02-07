@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
+import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
+  // console.log(new Date("2011-04-12".replace(/-/g, "/")));
   const navigate = useNavigate();
   const date = new Date();
   const hr =
@@ -15,16 +17,12 @@ const ExpenseForm = (props) => {
     date.getMinutes().toString() < 10
       ? `0${date.getMinutes().toString()}`
       : date.getMinutes().toString();
-
-  const [month, day, year] = date.toLocaleDateString().split("/");
-
+  const result = format(date, "yyyy-MM-dd");
   const [userInput, setUserInput] = useState({
     enteredTitle: "",
     enteredLabel: "Food",
     enteredAmount: "",
-    enteredDate: `${year}-${month < 10 ? `0${month}` : `${month}`}-${
-      day < 10 ? `0${day}` : `${day}`
-    }`,
+    enteredDate: result,
     enteredTime: `${hr}:${min}`,
   });
   useEffect(() => {}, [userInput]);
