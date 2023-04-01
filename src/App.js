@@ -10,6 +10,7 @@ import SignUp from "./pages/SignUp/SignUp";
 import { Routes, Route } from "react-router-dom";
 import ForgotPassWord from "./pages/ForgotPassword/ForgotPassword";
 import Profile from "./pages/Profile/Profile";
+import Budget from "./components/Budget/Budget";
 //const expenses = ;
 
 function App() {
@@ -37,10 +38,14 @@ function App() {
   const fetchData = useCallback(async () => {
     try {
       const xi = await getDocs(collection(db, `expenseData/${user.uid}/data/`));
+      const zi = await getDocs(
+        collection(db, `expenseData/${user.uid}/budget/`)
+      );
       const yi = await getDocs(
         collection(db, `userData/${user.uid}/userDetails/`)
       );
       const z = yi.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      const bd = zi.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       const d = xi.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       const x = d.map((y) => {
         const dt = y.date.split(",");
@@ -61,6 +66,7 @@ function App() {
           userName: z[0].userName,
           name: z[0].name,
           id: z[0].id,
+          budget: bd[0].budget,
         };
       });
       setExpenses(() => {
@@ -95,6 +101,11 @@ function App() {
             element={
               <>
                 <Navbar signOut={signOut} email={user.userName} />
+                {/* <Budget
+                  onRefresh={onRefresh}
+                  uid={user.uid}
+                  budget={user.budget}
+                /> */}
                 <NewExpense onRefresh={onRefresh} uid={user.uid} />
               </>
             }
