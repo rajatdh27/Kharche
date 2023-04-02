@@ -6,6 +6,9 @@ import "./Budget.css";
 
 const Budget = (props) => {
   const navigate = useNavigate();
+  const d = new Date();
+
+  const [opOnBudget, setOpOnBudget] = useState(true);
   const [userInput, setUserInput] = useState({
     enteredAmount: "",
   });
@@ -15,21 +18,32 @@ const Budget = (props) => {
       return { ...prevState, enteredAmount: amount };
     });
   };
+  const addHandler = () => {
+    setOpOnBudget(true);
+  };
+  const minusHandler = () => {
+    setOpOnBudget(false);
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!props.budget) {
       try {
         addDoc(collection(db, `expenseData/${props.uid}/budget/`), {
-          budget: userInput.enteredAmount,
+          budget:
+            opOnBudget === true
+              ? 1 * userInput.enteredAmount
+              : -1 * userInput.enteredAmount,
+          month: d.getMonth(),
+          year: d.getFullYear(),
         });
         props.onRefresh();
         navigate("/");
       } catch (err) {
         console.log(err);
       }
-    }else{
-      alert("Your")
+    } else {
+      alert("Your");
     }
     setUserInput(() => {
       return {
@@ -45,7 +59,7 @@ const Budget = (props) => {
         <form onSubmit={submitHandler}>
           <div className="new-expense__controls">
             <div className="new-expense__control">
-              <label>Budget : {props.budget}</label>
+              <label>Budget(Month) :</label>
               <input
                 type="number"
                 onChange={amountHandler}
@@ -57,12 +71,19 @@ const Budget = (props) => {
             </div>
           </div>
           <div className="new-expense__actions">
-            <button type="submit">
-              Add Expense
+            <button type="submit" onClick={addHandler}>
+              Add
               <i className="fa-solid fa-plus icon"></i>
+            </button>
+            <button type="submit" onClick={minusHandler}>
+              Minus
+              <i className="fa-solid fa-minus icon"></i>
             </button>
           </div>
         </form>
+        <h2>
+          Budget(Month) : {props.budget ? props.budget : "Not Unfined Yet 😔"}
+        </h2>
       </div>
     </div>
   );

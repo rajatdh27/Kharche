@@ -43,9 +43,10 @@ select {
   justify-content: center;
   align-items: center;
   height: 20rem;
-  margin-top: 2rem;
+  margin-top: 3rem;
   margin-bottom: 1rem;
 }
+
 
 .containerB .new-expense {
   background-color: #9388a2;

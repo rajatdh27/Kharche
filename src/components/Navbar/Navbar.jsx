@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import "./Navbar.css";
+import { color } from "d3";
 const t = new Date().toLocaleTimeString();
 function Navbar(props) {
   const navigate = useNavigate();

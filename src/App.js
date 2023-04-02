@@ -15,6 +15,7 @@ import Budget from "./components/Budget/Budget";
 
 function App() {
   const [expenses, setExpenses] = useState([]);
+  const date = new Date();
   const [user, setUser] = useState({
     uid: "",
     userName: "",
@@ -47,6 +48,16 @@ function App() {
       const z = yi.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       const bd = zi.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       const d = xi.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+
+      const bud = bd.map((bgt) => {
+        if (date.getMonth() === bgt.month && date.getFullYear() === bgt.year) {
+          return bgt.budget;
+        }
+      });
+      let sum = 0;
+      bud.forEach((x) => {
+        sum += x;
+      });
       const x = d.map((y) => {
         const dt = y.date.split(",");
         return {
@@ -66,7 +77,7 @@ function App() {
           userName: z[0].userName,
           name: z[0].name,
           id: z[0].id,
-          budget: bd[0].budget,
+          budget: sum,
         };
       });
       setExpenses(() => {
@@ -100,12 +111,16 @@ function App() {
             path="/"
             element={
               <>
-                <Navbar signOut={signOut} email={user.userName} />
-                {/* <Budget
-                  onRefresh={onRefresh}
-                  uid={user.uid}
+                <Navbar
+                  signOut={signOut}
+                  email={user.userName}
                   budget={user.budget}
-                /> */}
+                />
+                <Budget
+                  onRefresh={onRefresh}
+                  budget={user.budget}
+                  uid={user.uid}
+                />
                 <NewExpense onRefresh={onRefresh} uid={user.uid} />
               </>
             }
