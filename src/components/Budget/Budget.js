@@ -27,23 +27,19 @@ const Budget = (props) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (!props.budget) {
-      try {
-        addDoc(collection(db, `expenseData/${props.uid}/budget/`), {
-          budget:
-            opOnBudget === true
-              ? 1 * userInput.enteredAmount
-              : -1 * userInput.enteredAmount,
-          month: d.getMonth(),
-          year: d.getFullYear(),
-        });
-        props.onRefresh();
-        navigate("/");
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      alert("Your");
+    try {
+      addDoc(collection(db, `expenseData/${props.uid}/budget/`), {
+        budget:
+          opOnBudget === true
+            ? 1 * userInput.enteredAmount
+            : -1 * userInput.enteredAmount,
+        month: d.getMonth(),
+        year: d.getFullYear(),
+      });
+      props.onRefresh();
+      navigate("/");
+    } catch (err) {
+      console.log(err);
     }
     setUserInput(() => {
       return {
