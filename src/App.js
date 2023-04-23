@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Expenses from "./components/Expenses/Expenses";
 import { getDocs, collection } from "firebase/firestore";
-import { useReactPWAInstall } from "react-pwa-install";
 import { db } from "./firebaseConfig";
 import Navbar from "./components/Navbar/Navbar";
 import NewExpense from "./components/New Expense/NewExpense";
@@ -12,31 +11,9 @@ import { Routes, Route } from "react-router-dom";
 import ForgotPassWord from "./pages/ForgotPassword/ForgotPassword";
 import Profile from "./pages/Profile/Profile";
 import Budget from "./components/Budget/Budget";
-import myLogo from "./public/android-icon-72x72.png";
 //const expenses = ;
 
 function App() {
-  const { pwaInstall, supported, isInstalled } = useReactPWAInstall();
-
-  const handleClick = () => {
-    pwaInstall({
-      title: "Install Web App",
-      logo: myLogo,
-      features: (
-        <ul>
-          <li>Cool feature 1</li>
-          <li>Cool feature 2</li>
-          <li>Even cooler feature</li>
-          <li>Works offline</li>
-        </ul>
-      ),
-      description: "This is a very good app that does a lot of useful stuff. ",
-    })
-      .then(() =>
-        alert("App installed successfully or instructions for install shown")
-      )
-      .catch(() => alert("User opted out from installing"));
-  };
   const [expenses, setExpenses] = useState([]);
   const date = new Date();
   const [user, setUser] = useState({
@@ -132,18 +109,7 @@ function App() {
         <Route
           exact
           path="/login"
-          element={
-            <>
-              <div>
-                {supported() && !isInstalled() && (
-                  <button type="button" onClick={handleClick}>
-                    Install App
-                  </button>
-                )}
-              </div>
-              <Login userHandler={userHandler} />
-            </>
-          }
+          element={<Login userHandler={userHandler} />}
         />
         <Route
           element={<ProtectedRoute auth={user.uid !== "" ? true : false} />}
