@@ -45,3 +45,35 @@
 
   /* grid-template-columns: auto auto auto; */
 }
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonContainer .button {
+  padding: 0.7rem 2rem;
+  border: 0;
+  border-radius: 1.2rem;
+  font-size: 1rem;
+  width: 30%;
+  min-width: 15rem;
+  background-color: #624f70;
+  color: #ffffff;
+  font-weight: Bold;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+
+.button:hover {
+  background-color: #341948b1;
+  box-shadow: 0 0 20px #c197d2;
+}
+
+.button:active {
+  background-color: #613659;
+  transition: all 0.25s;
+  -webkit-transition: all 0.25s;
+  box-shadow: none;
+}

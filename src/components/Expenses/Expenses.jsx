@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 
 import ExpenseItem from "./ExpenseItems";
+import { v4 as uuidv4 } from "uuid";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 import ExpensesFilter from "./ExpenseFilter";
 import Chart from "../Chart/Chart";
 import Card from "../UI/Card";
 import "./Expenses.css";
+import { style } from "d3";
 
 const Expenses = (props) => {
   const [sortList, setSortList] = useState("new");
@@ -51,6 +55,35 @@ const Expenses = (props) => {
       return da - db;
     });
   }
+  const generateFilename = () => {
+    const timestamp = new Date().getTime();
+    const randomString = uuidv4().substr(0, 8); // Generate a random string of 8 characters
+    const filename = `${timestamp}-${randomString}`;
+    return filename;
+  };
+
+  const pdfGenrator = () => {
+    const doc = new jsPDF();
+
+    // Define table headers and rows
+    const options = { day: "numeric", month: "long", year: "numeric" };
+    const headers = [["Label", "Title", "Amount", "Date"]];
+    const rows = filteredExpenses.map((item) => [
+      item.label,
+      item.title,
+      item.amount,
+      item.date.toLocaleDateString("en-GB", options),
+    ]);
+
+    // Add table to PDF document
+    doc.autoTable({
+      head: headers,
+      body: rows,
+    });
+
+    // Save or view PDF document
+    doc.save(generateFilename());
+  };
   // console.log(filteredExpenses);
   return (
     <Card className="expenses">
@@ -74,6 +107,11 @@ const Expenses = (props) => {
               <option value="new">Newest First</option>
               <option value="old">Oldest First</option>
             </select>
+          </div>
+          <div className="buttonContainer">
+            <button className="button" onClick={pdfGenrator}>
+              Generate PDF
+            </button>
           </div>
         </>
       )}
