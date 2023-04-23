@@ -8,7 +8,25 @@ import ExpensesFilter from "./ExpenseFilter";
 import Chart from "../Chart/Chart";
 import Card from "../UI/Card";
 import "./Expenses.css";
-import { style } from "d3";
+import CryptoJS from "crypto-js";
+
+const secretKey = "mysecretkey"; // Replace with your own secret key
+
+function encryptMessage(message) {
+  const encryptedMessage = CryptoJS.AES.encrypt(message, secretKey).toString();
+  console.log(encryptedMessage);
+  localStorage.setItem("encryptedMessage", encryptedMessage);
+}
+
+// encryptMessage("This is my secret message");
+function decryptMessage() {
+  const encryptedMessage = localStorage.getItem("encryptedMessage");
+  const decryptedBytes = CryptoJS.AES.decrypt(encryptedMessage, secretKey);
+  const decryptedMessage = decryptedBytes.toString(CryptoJS.enc.Utf8);
+  return decryptedMessage;
+}
+
+// console.log(decryptMessage()); // Output: "This is my secret message"
 
 const Expenses = (props) => {
   const [sortList, setSortList] = useState("new");
@@ -83,6 +101,10 @@ const Expenses = (props) => {
 
     // Save or view PDF document
     doc.save(generateFilename());
+    encryptMessage(
+      "Note that it is important to keep the secret key safe and not share it with anyone, as it is required to decrypt the message."
+    );
+    console.log(decryptMessage());
   };
   // console.log(filteredExpenses);
   return (

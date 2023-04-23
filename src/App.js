@@ -88,6 +88,14 @@ function App() {
     }
   }, [user.uid]);
   useEffect(() => {
+    let deferredPrompt;
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferredPrompt = event;
+      // Show a custom install button or other UI to prompt the user to install the app
+    });
+  }, []);
+  useEffect(() => {
     if (user.uid !== "") {
       fetchData();
     }
