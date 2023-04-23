@@ -9,7 +9,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  sendEmailVerification
+  sendEmailVerification,
 } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
