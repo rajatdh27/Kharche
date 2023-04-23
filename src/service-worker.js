@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 const CACHE_NAME = "kharche-cache";
 const urlsToCache = ["/", "/index.html"];
 
