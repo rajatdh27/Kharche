@@ -7,6 +7,7 @@ import "./Budget.css";
 const Budget = (props) => {
   const navigate = useNavigate();
   const d = new Date();
+  console.log(props);
 
   const [opOnBudget, setOpOnBudget] = useState(true);
   const [userInput, setUserInput] = useState({

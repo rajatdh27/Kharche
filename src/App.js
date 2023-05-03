@@ -48,16 +48,19 @@ function App() {
       const z = yi.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       const bd = zi.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       const d = xi.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-
+      console.log(bd);
       const bud = bd.map((bgt) => {
         if (date.getMonth() === bgt.month && date.getFullYear() === bgt.year) {
+          console.log(bgt.budget);
           return bgt.budget;
         }
       });
+      console.log(bud);
       let sum = 0;
       bud.forEach((x) => {
-        sum += x;
+        if (x) sum += x;
       });
+      console.log(sum);
       const x = d.map((y) => {
         const dt = y.date.split(",");
         return {
