@@ -58,7 +58,7 @@ function App() {
       console.log(bud);
       let sum = 0;
       bud.forEach((x) => {
-        if (x) sum += x;
+        if (x !== undefined) sum += x;
       });
       console.log(sum);
       const x = d.map((y) => {
